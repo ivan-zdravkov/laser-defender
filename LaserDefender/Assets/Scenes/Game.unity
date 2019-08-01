@@ -445,6 +445,10 @@ MonoBehaviour:
   moveSpeed: 10
   projectileSpeed: 20
   projectileFiringPeriod: 0.25
+  tiltX: 50
+  tiltY: 25
+  tiltZ: 50
+  tiltSmooth: 5
   laserPrefab: {fileID: 63773868166818358, guid: c5018712eb359c74fbdef8d6e381ffe4,
     type: 3}
 --- !u!1 &920192737

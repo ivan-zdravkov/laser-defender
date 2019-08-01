@@ -8,6 +8,10 @@ public class Player : MonoBehaviour
     [SerializeField] float moveSpeed = 10f;
     [SerializeField] float projectileSpeed = 10f;
     [SerializeField] float projectileFiringPeriod = 0.1f;
+    [SerializeField] float tiltX = 150f;
+    [SerializeField] float tiltY = 200f;
+    [SerializeField] float tiltZ = 50f;
+    [SerializeField] float tiltSmooth = 50f;
     [SerializeField] GameObject laserPrefab;
 
     float xMin, xMax, yMin, yMax;
@@ -44,6 +48,8 @@ public class Player : MonoBehaviour
             x: Mathf.Clamp(this.transform.position.x + deltaX, this.xMin, this.xMax),
             y: Mathf.Clamp(this.transform.position.y + deltaY, this.yMin, this.yMax)
         );
+
+        this.TiltHorizontal(deltaX);
     }
 
     private void Fire()
@@ -60,15 +66,37 @@ public class Player : MonoBehaviour
     {
         while (true)
         {
-            GameObject laser = Instantiate(
-                original: this.laserPrefab,
-                position: this.transform.position,
-                rotation: Quaternion.identity
-            ) as GameObject;
-
-            laser.GetComponent<Rigidbody2D>().velocity = new Vector2(0, this.projectileSpeed);
+            FireNoseLaser();
 
             yield return new WaitForSeconds(this.projectileFiringPeriod);
         }
+    }
+
+    private void FireNoseLaser()
+    {
+        GameObject laser = Instantiate(
+            original: this.laserPrefab,
+            position: new Vector3(
+                x: this.transform.position.x +
+                    (transform.position.x > 0 ? (this.transform.rotation.x * -25) : (this.transform.rotation.x * 25)),
+                y: this.transform.position.y + 0.5f,
+                z: this.transform.position.y
+            ),
+            rotation: this.transform.rotation
+        ) as GameObject;
+
+        laser.GetComponent<Rigidbody2D>().velocity = new Vector2(
+            x: this.transform.forward.x * this.projectileSpeed,
+            y: this.projectileSpeed
+        );
+    }
+
+    private void TiltHorizontal(float deltaX)
+    {
+        transform.rotation = Quaternion.Slerp(
+            a: transform.rotation,
+            b: Quaternion.Euler(0, deltaX * this.tiltY, deltaX * -this.tiltZ),
+            t: Time.deltaTime * this.tiltSmooth
+        );
     }
 }
