@@ -11,8 +11,10 @@ GameObject:
   - component: {fileID: 582795946161596759}
   - component: {fileID: 582795946161596756}
   - component: {fileID: 4639091946974632322}
+  - component: {fileID: -8012737713730281850}
+  - component: {fileID: 1614293957851439602}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: Light Fighter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -93,5 +95,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1aa1158789dbe4469472d38ee89d0fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waveConfig: {fileID: 11400000, guid: 170e1813e874647449a1fd4f7b5455dd, type: 2}
-  moveSpeed: 2
+--- !u!114 &-8012737713730281850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 582795946161596757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e7c40434621b104dabf9c62a343d93b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 120
+--- !u!58 &1614293957851439602
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 582795946161596757}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.37
