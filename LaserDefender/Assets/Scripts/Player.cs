@@ -1,18 +1,24 @@
-﻿using System;
+﻿using Assets.Scripts;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [Header("Player")]
+    [SerializeField] AlignmentEnum alignment = AlignmentEnum.Enemy;
     [SerializeField] float moveSpeed = 10f;
-    [SerializeField] float projectileSpeed = 10f;
-    [SerializeField] float projectileFiringPeriod = 0.1f;
     [SerializeField] float tiltX = 150f;
     [SerializeField] float tiltY = 200f;
     [SerializeField] float tiltZ = 50f;
     [SerializeField] float tiltSmooth = 50f;
+    [SerializeField] int health = 1000;
+
+    [Header("Projectile")]
     [SerializeField] GameObject laserPrefab;
+    [SerializeField] float projectileSpeed = 10f;
+    [SerializeField] float projectileFiringPeriod = 0.1f;
 
     float xMin, xMax, yMin, yMax;
 
@@ -80,7 +86,7 @@ public class Player : MonoBehaviour
                 x: this.transform.position.x +
                     (transform.position.x > 0 ? (this.transform.rotation.x * -25) : (this.transform.rotation.x * 25)),
                 y: this.transform.position.y + 0.5f,
-                z: this.transform.position.y
+                z: this.transform.position.z
             ),
             rotation: this.transform.rotation
         ) as GameObject;
@@ -98,5 +104,23 @@ public class Player : MonoBehaviour
             b: Quaternion.Euler(0, deltaX * this.tiltY, deltaX * -this.tiltZ),
             t: Time.deltaTime * this.tiltSmooth
         );
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        DamageDealer damageDealer = other.gameObject.GetComponent<DamageDealer>();
+
+        if (damageDealer.Alignment != this.alignment)
+            this.ProcessHit(damageDealer);
+    }
+
+    private void ProcessHit(DamageDealer damageDealer)
+    {
+        damageDealer.DestroyOnHit();
+
+        this.health -= damageDealer.Damage;
+
+        if (this.health <= 0)
+            Destroy(this.gameObject);
     }
 }
