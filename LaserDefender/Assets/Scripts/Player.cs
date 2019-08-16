@@ -14,6 +14,8 @@ public class Player : MonoBehaviour
     [SerializeField] float tiltZ = 50f;
     [SerializeField] float tiltSmooth = 50f;
     [SerializeField] int health = 1000;
+    [SerializeField] GameObject hitVFX;
+    [SerializeField] GameObject deathVFX;
 
     [Header("Projectile")]
     [SerializeField] GameObject laserPrefab;
@@ -121,6 +123,15 @@ public class Player : MonoBehaviour
         this.health -= damageDealer.Damage;
 
         if (this.health <= 0)
-            Destroy(this.gameObject);
+            this.Destroy();
+
+    }
+
+    private void Destroy()
+    {
+        GameObject explosion = Instantiate(this.deathVFX, this.transform.position, Quaternion.identity);
+
+        Destroy(explosion, 1f);
+        Destroy(this.gameObject);
     }
 }

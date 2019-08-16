@@ -101,6 +101,8 @@ MonoBehaviour:
   tiltZ: 50
   tiltSmooth: 5
   health: 500
+  explosion: {fileID: 8367878707212967102, guid: dbf3adbd64c977942a350e8d35b0495c,
+    type: 3}
   laserPrefab: {fileID: 63773868166818358, guid: c5018712eb359c74fbdef8d6e381ffe4,
     type: 3}
   projectileSpeed: 20
