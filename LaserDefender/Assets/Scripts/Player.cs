@@ -124,14 +124,22 @@ public class Player : MonoBehaviour
 
         if (this.health <= 0)
             this.Destroy();
+        else
+            this.PlayVFX(this.hitVFX);
 
     }
 
     private void Destroy()
     {
-        GameObject explosion = Instantiate(this.deathVFX, this.transform.position, Quaternion.identity);
+        this.PlayVFX(this.deathVFX);
+
+        Destroy(this.gameObject);
+    }
+
+    private void PlayVFX(GameObject vfx)
+    {
+        GameObject explosion = Instantiate(vfx, this.transform.position, Quaternion.identity);
 
         Destroy(explosion, 1f);
-        Destroy(this.gameObject);
     }
 }
