@@ -95,18 +95,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   alignment: 1
+  health: 500
+  projectileSpeed: 20
+  laserPrefab: {fileID: 63773868166818358, guid: c5018712eb359c74fbdef8d6e381ffe4,
+    type: 3}
+  hitVFX: {fileID: 8367878707212967102, guid: 186b1cab6fa13294587eb3178b42a16f, type: 3}
+  deathVFX: {fileID: 8367878707212967102, guid: dbf3adbd64c977942a350e8d35b0495c,
+    type: 3}
+  hitSFX: {fileID: 8300000, guid: d4cfe0f515ce0544b94a719a1722459b, type: 3}
+  deathSFX: {fileID: 8300000, guid: f865729c5d5e8024d88e2ce01f357d1f, type: 3}
+  shootSFX: {fileID: 8300000, guid: b000f5e281642314eb06f5a5c63e9d4c, type: 3}
   moveSpeed: 10
   tiltX: 50
   tiltY: 25
   tiltZ: 50
   tiltSmooth: 5
-  health: 500
-  hitVFX: {fileID: 8367878707212967102, guid: 186b1cab6fa13294587eb3178b42a16f, type: 3}
-  deathVFX: {fileID: 8367878707212967102, guid: dbf3adbd64c977942a350e8d35b0495c,
-    type: 3}
-  laserPrefab: {fileID: 63773868166818358, guid: c5018712eb359c74fbdef8d6e381ffe4,
-    type: 3}
-  projectileSpeed: 20
   projectileFiringPeriod: 0.25
 --- !u!60 &8135397907071764442
 PolygonCollider2D:

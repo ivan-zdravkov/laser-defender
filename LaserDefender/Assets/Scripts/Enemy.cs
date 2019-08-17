@@ -4,19 +4,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Enemy : Ship
 {
-    [Header("Enemy")]
-    [SerializeField] AlignmentEnum alignment = AlignmentEnum.Enemy;
-    [SerializeField] float health = 100f;
     [SerializeField] float minTimeBetweenShots = 0.2f;
     [SerializeField] float maxTimeBetweenShots = 2.4f;
-    [SerializeField] GameObject hitVFX;
-    [SerializeField] GameObject deathVFX;
-
-    [Header("Projectile")]
-    [SerializeField] GameObject laserPrefab;
-    [SerializeField] float projectileSpeed = 10f;
 
     float shotCounter;
 
@@ -64,40 +55,7 @@ public class Enemy : MonoBehaviour
             x: 0,
             y: -this.projectileSpeed
         );
-    }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        DamageDealer damageDealer = other.gameObject.GetComponent<DamageDealer>();
-
-        if (damageDealer.Alignment != this.alignment)
-            this.ProcessHit(damageDealer);
-    }
-
-    private void ProcessHit(DamageDealer damageDealer)
-    {
-        damageDealer.DestroyOnHit();
-
-        this.health -= damageDealer.Damage;
-
-        if (this.health <= 0)
-            this.Destroy();
-        else
-            this.PlayVFX(this.hitVFX);
-
-    }
-
-    private void Destroy()
-    {
-        this.PlayVFX(this.deathVFX);
-
-        Destroy(this.gameObject);
-    }
-
-    private void PlayVFX(GameObject vfx)
-    {
-        GameObject explosion = Instantiate(vfx, this.transform.position, Quaternion.identity);
-
-        Destroy(explosion, 1f);
+        AudioSource.PlayClipAtPoint(this.shootSFX, this.transform.position);
     }
 }
