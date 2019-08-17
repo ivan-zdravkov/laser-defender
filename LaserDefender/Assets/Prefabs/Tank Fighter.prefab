@@ -118,6 +118,8 @@ MonoBehaviour:
   hitSFX: {fileID: 8300000, guid: d4cfe0f515ce0544b94a719a1722459b, type: 3}
   deathSFX: {fileID: 8300000, guid: f865729c5d5e8024d88e2ce01f357d1f, type: 3}
   shootSFX: {fileID: 8300000, guid: b000f5e281642314eb06f5a5c63e9d4c, type: 3}
+  shootVolume: 0.75
+  dieVolume: 0.75
   minTimeBetweenShots: 0.2
   maxTimeBetweenShots: 2.4
 --- !u!58 &3494554654755787881

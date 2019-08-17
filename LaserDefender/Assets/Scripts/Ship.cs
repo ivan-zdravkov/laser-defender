@@ -23,6 +23,9 @@ namespace Assets.Scripts
         [SerializeField] protected AudioClip deathSFX;
         [SerializeField] protected AudioClip shootSFX;
 
+        [SerializeField] [Range(0, 1)] protected float shootVolume;
+        [SerializeField] [Range(0, 1)] protected float dieVolume;
+
         protected void OnTriggerEnter2D(Collider2D other)
         {
             DamageDealer damageDealer = other.gameObject.GetComponent<DamageDealer>();
@@ -38,7 +41,7 @@ namespace Assets.Scripts
             this.health -= damageDealer.Damage;
 
             if (this.health <= 0)
-                this.Destroy();
+                this.Die();
             else
                 this.Hit();
         }
@@ -49,7 +52,7 @@ namespace Assets.Scripts
             this.PlaySFX(this.hitSFX);
         }
 
-        private void Destroy()
+        private void Die()
         {
             this.PlayVFX(this.deathVFX);
             this.PlaySFX(this.deathSFX);
@@ -59,7 +62,7 @@ namespace Assets.Scripts
 
         private void PlaySFX(AudioClip clip)
         {
-            AudioSource.PlayClipAtPoint(clip, this.transform.position);
+            AudioSource.PlayClipAtPoint(clip, Camera.main.transform.position, this.dieVolume);
         }
 
         private void PlayVFX(GameObject vfx)

@@ -56,6 +56,6 @@ public class Enemy : Ship
             y: -this.projectileSpeed
         );
 
-        AudioSource.PlayClipAtPoint(this.shootSFX, this.transform.position);
+        AudioSource.PlayClipAtPoint(this.shootSFX, Camera.main.transform.position, this.shootVolume);
     }
 }
