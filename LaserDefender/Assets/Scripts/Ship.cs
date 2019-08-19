@@ -34,7 +34,7 @@ namespace Assets.Scripts
                 this.ProcessHit(damageDealer);
         }
 
-        private void ProcessHit(DamageDealer damageDealer)
+        protected void ProcessHit(DamageDealer damageDealer)
         {
             damageDealer.DestroyOnHit();
 
@@ -46,13 +46,13 @@ namespace Assets.Scripts
                 this.Hit();
         }
 
-        private void Hit()
+        protected void Hit()
         {
             this.PlayVFX(this.hitVFX);
             this.PlaySFX(this.hitSFX);
         }
 
-        private void Die()
+        protected virtual void Die()
         {
             this.PlayVFX(this.deathVFX);
             this.PlaySFX(this.deathSFX);
@@ -60,12 +60,12 @@ namespace Assets.Scripts
             Destroy(this.gameObject);
         }
 
-        private void PlaySFX(AudioClip clip)
+        protected void PlaySFX(AudioClip clip)
         {
             AudioSource.PlayClipAtPoint(clip, Camera.main.transform.position, this.dieVolume);
         }
 
-        private void PlayVFX(GameObject vfx)
+        protected void PlayVFX(GameObject vfx)
         {
             GameObject explosion = Instantiate(vfx, this.transform.position, Quaternion.identity);
 

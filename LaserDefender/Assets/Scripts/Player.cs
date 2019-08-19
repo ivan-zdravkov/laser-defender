@@ -102,4 +102,11 @@ public class Player : Ship
             t: Time.deltaTime * this.tiltSmooth
         );
     }
+
+    protected override void Die()
+    {
+        FindObjectOfType<Level>().End();
+
+        base.Die();
+    }
 }
