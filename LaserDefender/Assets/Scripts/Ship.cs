@@ -46,7 +46,7 @@ namespace Assets.Scripts
                 this.Hit();
         }
 
-        protected void Hit()
+        protected virtual void Hit()
         {
             this.PlayVFX(this.hitVFX);
             this.PlaySFX(this.hitSFX);

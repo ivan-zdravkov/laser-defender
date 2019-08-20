@@ -8,6 +8,9 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] List<WaveConfig> waveConfigs;
     [SerializeField] bool looping = true;
 
+    [SerializeField] float difficulty = 1.0f;
+    [SerializeField] float difficultyScale = 1.0f;
+
     IEnumerator Start()
     {
         while (this.looping)
@@ -22,10 +25,14 @@ public class EnemySpawner : MonoBehaviour
         {
             yield return StartCoroutine(SpawnAllEnemiesInWave(wave));
         }
+
+        this.difficultyScale += difficultyScale;
     }
 
     private IEnumerator SpawnAllEnemiesInWave(WaveConfig waveConfig)
     {
+        waveConfig.SetDificulty(this.difficulty);
+
         for (int enemyCount = 0; enemyCount < waveConfig.NumberOfEnemies; enemyCount++)
         {
             GameObject newEnemy = Instantiate(

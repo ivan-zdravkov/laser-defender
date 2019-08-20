@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -35,4 +36,11 @@ public class WaveConfig : ScriptableObject
     public float MoveSpeed { get => moveSpeed; }
 
     public int NumberOfEnemies { get => numberOfEnemies; }
+
+    public void SetDificulty(float difficulty)
+    {
+        this.timeBetweenSpawns /= difficulty;
+        this.moveSpeed *= difficulty;
+        this.numberOfEnemies = (int)Math.Floor(this.numberOfEnemies * difficulty);
+    }
 }

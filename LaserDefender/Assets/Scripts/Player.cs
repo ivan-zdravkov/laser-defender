@@ -16,6 +16,8 @@ public class Player : Ship
     [Header("Projectile")]
     [SerializeField] float projectileFiringPeriod = 0.1f;
 
+    int level = 1;
+
     float xMin, xMax, yMin, yMax;
 
     Coroutine firingCoroutine;
@@ -67,7 +69,21 @@ public class Player : Ship
     {
         while (true)
         {
-            FireNoseLaser();
+            switch (this.level)
+            {
+                case 1:
+                    FireNoseLaser();
+                    break;
+                case 2:
+                    FireSideLasers();
+                    break;
+                case 3:
+                    FireNoseLaser();
+                    FireSideLasers();
+                    break;
+            }
+
+            AudioSource.PlayClipAtPoint(this.shootSFX, Camera.main.transform.position, this.shootVolume);
 
             yield return new WaitForSeconds(this.projectileFiringPeriod);
         }
@@ -75,12 +91,23 @@ public class Player : Ship
 
     private void FireNoseLaser()
     {
+        FireLaser(offset: 0);
+    }
+
+    private void FireSideLasers()
+    {
+        FireLaser(offset: 0.5f);
+        FireLaser(offset: -0.5f);
+    }
+
+    private void FireLaser(float offset)
+    {
         GameObject laser = Instantiate(
             original: this.laserPrefab,
             position: new Vector3(
-                x: this.transform.position.x +
+                x: this.transform.position.x + offset +
                     (transform.position.x > 0 ? (this.transform.rotation.x * -25) : (this.transform.rotation.x * 25)),
-                y: this.transform.position.y + 0.5f,
+                y: this.transform.position.y + (offset == 0 ? 0.5f : 0.25f),
                 z: this.transform.position.z
             ),
             rotation: this.transform.rotation
@@ -90,8 +117,6 @@ public class Player : Ship
             x: this.transform.forward.x * this.projectileSpeed,
             y: this.projectileSpeed
         );
-
-        AudioSource.PlayClipAtPoint(this.shootSFX, Camera.main.transform.position, this.shootVolume);
     }
 
     private void TiltHorizontal(float deltaX)
@@ -101,6 +126,14 @@ public class Player : Ship
             b: Quaternion.Euler(0, deltaX * this.tiltY, deltaX * -this.tiltZ),
             t: Time.deltaTime * this.tiltSmooth
         );
+    }
+
+    protected override void Hit()
+    {
+        if (this.level > 1)
+            this.level--;
+
+        base.Hit();
     }
 
     protected override void Die()
@@ -121,5 +154,13 @@ public class Player : Ship
     public void GainHealth(int health)
     {
         this.health += health;
+    }
+
+    public void GainLevel()
+    {
+        if (this.level < 3)
+            this.level++;
+        else
+            this.GainHealth(50); 
     }
 }

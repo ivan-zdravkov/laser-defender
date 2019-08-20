@@ -484,6 +484,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2d3ae8ac813054741a5ae287432b4a6a, type: 2}
   - {fileID: 11400000, guid: 107e8805ab773cc4cb91c0aa409099a7, type: 2}
   looping: 1
+  difficulty: 1
+  difficultyScale: 1
 --- !u!4 &1737659702
 Transform:
   m_ObjectHideFlags: 0

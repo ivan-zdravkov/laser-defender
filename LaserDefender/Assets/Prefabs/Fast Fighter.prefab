@@ -126,6 +126,7 @@ MonoBehaviour:
   scoreRandomness: 25
   healthPack: {fileID: 7299280260497812100, guid: e84013ce301f2514fb525755616e26ba,
     type: 3}
+  levelUp: {fileID: 6870766675093662956, guid: 2e16a5142b7caa74587311d3bd764cca, type: 3}
 --- !u!58 &5495542719995466948
 CircleCollider2D:
   m_ObjectHideFlags: 0

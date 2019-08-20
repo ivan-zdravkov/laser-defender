@@ -11,6 +11,9 @@ public class Enemy : Ship
     [SerializeField] int scorePoints;
     [SerializeField] [Range(10, 50)] int scoreRandomness = 10;
     [SerializeField] GameObject healthPack;
+    [SerializeField] GameObject levelUp;
+
+    int dropFactor = 10000;
 
     GameSession gameSession;
 
@@ -73,15 +76,18 @@ public class Enemy : Ship
     {
         this.gameSession.AddToScore(scoreValue: CalculateScore());
 
-        if (ShouldDropHealthPack())
+        if (DropBonus())
             this.DropHealthPack();
+
+        if (DropBonus())
+            DropLevelUp();
 
         base.Die();
     }
 
-    private bool ShouldDropHealthPack()
+    private bool DropBonus()
     {
-        return UnityEngine.Random.Range(0, 1000) < this.initialHealth;
+        return UnityEngine.Random.Range(0, this.dropFactor) < this.initialHealth;
     }
 
     private void DropHealthPack()
@@ -97,6 +103,24 @@ public class Enemy : Ship
         ) as GameObject;
 
         health.GetComponent<Rigidbody2D>().velocity = new Vector2(
+            x: 0,
+            y: -this.projectileSpeed
+        );
+    }
+
+    private void DropLevelUp()
+    {
+        GameObject level = Instantiate(
+            original: this.levelUp,
+            position: new Vector3(
+                x: this.transform.position.x,
+                y: this.transform.position.y - 0.75f,
+                z: this.transform.position.z
+            ),
+            rotation: Quaternion.identity
+        ) as GameObject;
+
+        level.GetComponent<Rigidbody2D>().velocity = new Vector2(
             x: 0,
             y: -this.projectileSpeed
         );

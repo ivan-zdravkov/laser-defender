@@ -3,9 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Health : MonoBehaviour
+public class LevelUp : MonoBehaviour
 {
-    int health = 100;
     float rotation = 360f;
 
     private void Update()
@@ -19,7 +18,7 @@ public class Health : MonoBehaviour
 
         if (player != null)
         {
-            player.GainHealth(health);
+            player.GainLevel();
 
             Destroy(this.gameObject);
         }
