@@ -8,6 +8,10 @@ public class Enemy : Ship
 {
     [SerializeField] float minTimeBetweenShots = 0.2f;
     [SerializeField] float maxTimeBetweenShots = 2.4f;
+    [SerializeField] int scorePoints;
+    [SerializeField] [Range(10, 50)] int scoreRandomness = 10;
+
+    GameSession gameSession;
 
     float shotCounter;
 
@@ -15,6 +19,8 @@ public class Enemy : Ship
     void Start()
     {
         ResetShoutCounter();
+
+        this.gameSession = FindObjectOfType<GameSession>();
     }
 
     private void ResetShoutCounter()
@@ -57,5 +63,21 @@ public class Enemy : Ship
         );
 
         AudioSource.PlayClipAtPoint(this.shootSFX, Camera.main.transform.position, this.shootVolume);
+    }
+
+    protected override void Die()
+    {
+        this.gameSession.AddToScore(scoreValue: CalculateScore());
+
+        base.Die();
+    }
+
+    private int CalculateScore()
+    {
+        int randomFactor = this.scorePoints * this.scoreRandomness / 100;
+
+        return UnityEngine.Random.Range(
+            min: this.scorePoints - randomFactor,
+            max: this.scorePoints + randomFactor);
     }
 }

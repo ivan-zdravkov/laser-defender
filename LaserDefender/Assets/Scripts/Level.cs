@@ -7,20 +7,35 @@ public class Level : MonoBehaviour
 {
     [SerializeField] float endGameDelay = 2.5f;
 
+    GameSession gameSession;
+
+    private void Start()
+    {
+        this.gameSession = FindObjectOfType<GameSession>();
+    }
+
     public void Menu()
     {
+        this.gameSession.ResetGame();
+
         SceneManager.LoadScene(0);
     }
 
-    public void Game()
+    public void StartGame()
     {
         SceneManager.LoadScene(1);
+    }
+
+    public void RestartGame()
+    {
+        this.gameSession.ResetGame();
+
+        this.StartGame();
     }
 
     public void End()
     {
         StartCoroutine(EndGame());
-        
     }
 
     public void Quit()

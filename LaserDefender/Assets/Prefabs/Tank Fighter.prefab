@@ -122,6 +122,8 @@ MonoBehaviour:
   dieVolume: 0.75
   minTimeBetweenShots: 0.2
   maxTimeBetweenShots: 2.4
+  scorePoints: 108
+  scoreRandomness: 40
 --- !u!58 &3494554654755787881
 CircleCollider2D:
   m_ObjectHideFlags: 0
