@@ -60,7 +60,7 @@ public class Player : Ship
             this.firingCoroutine = StartCoroutine(FireContinuously());
 
         if (Input.GetButtonUp("Fire1"))
-            StopCoroutine(this.firingCoroutine);    
+            StopCoroutine(this.firingCoroutine);
     }
 
     private IEnumerator FireContinuously()
@@ -108,5 +108,13 @@ public class Player : Ship
         FindObjectOfType<Level>().End();
 
         base.Die();
+    }
+
+    public float Health
+    {
+        get
+        {
+            return this.health;
+        }
     }
 }
