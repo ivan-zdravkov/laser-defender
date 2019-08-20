@@ -9,24 +9,26 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] bool looping = true;
 
     [SerializeField] float difficulty = 1.0f;
-    [SerializeField] float difficultyScale = 1.0f;
+    [SerializeField] float difficultyScale = 0.2f;
 
     IEnumerator Start()
     {
         while (this.looping)
         {
             yield return StartCoroutine(SpawnAllWaves());
+
+            this.difficulty += difficultyScale;
         }
     }
 
     private IEnumerator SpawnAllWaves()
     {
-        foreach(var wave in waveConfigs)
+        foreach(WaveConfig wave in waveConfigs)
         {
-            yield return StartCoroutine(SpawnAllEnemiesInWave(wave));
-        }
+            WaveConfig clone = UnityEngine.Object.Instantiate(wave) as WaveConfig;
 
-        this.difficultyScale += difficultyScale;
+            yield return StartCoroutine(SpawnAllEnemiesInWave(clone));
+        }
     }
 
     private IEnumerator SpawnAllEnemiesInWave(WaveConfig waveConfig)

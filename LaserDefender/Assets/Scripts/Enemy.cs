@@ -13,7 +13,7 @@ public class Enemy : Ship
     [SerializeField] GameObject healthPack;
     [SerializeField] GameObject levelUp;
 
-    int dropFactor = 10000;
+    int dropFactor = 5000;
 
     GameSession gameSession;
 

@@ -40,7 +40,7 @@ public class WaveConfig : ScriptableObject
     public void SetDificulty(float difficulty)
     {
         this.timeBetweenSpawns /= difficulty;
-        this.moveSpeed *= difficulty;
+        this.moveSpeed *= (1 + difficulty / 10);
         this.numberOfEnemies = (int)Math.Floor(this.numberOfEnemies * difficulty);
     }
 }
