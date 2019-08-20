@@ -10,14 +10,18 @@ public class Enemy : Ship
     [SerializeField] float maxTimeBetweenShots = 2.4f;
     [SerializeField] int scorePoints;
     [SerializeField] [Range(10, 50)] int scoreRandomness = 10;
+    [SerializeField] GameObject healthPack;
 
     GameSession gameSession;
 
+    float initialHealth;
     float shotCounter;
 
     // Start is called before the first frame update
     void Start()
     {
+        this.initialHealth = health;
+
         ResetShoutCounter();
 
         this.gameSession = FindObjectOfType<GameSession>();
@@ -69,7 +73,33 @@ public class Enemy : Ship
     {
         this.gameSession.AddToScore(scoreValue: CalculateScore());
 
+        if (ShouldDropHealthPack())
+            this.DropHealthPack();
+
         base.Die();
+    }
+
+    private bool ShouldDropHealthPack()
+    {
+        return UnityEngine.Random.Range(0, 1000) < this.initialHealth;
+    }
+
+    private void DropHealthPack()
+    {
+        GameObject health = Instantiate(
+            original: this.healthPack,
+            position: new Vector3(
+                x: this.transform.position.x,
+                y: this.transform.position.y - 0.75f,
+                z: this.transform.position.z
+            ),
+            rotation: Quaternion.identity
+        ) as GameObject;
+
+        health.GetComponent<Rigidbody2D>().velocity = new Vector2(
+            x: 0,
+            y: -this.projectileSpeed
+        );
     }
 
     private int CalculateScore()

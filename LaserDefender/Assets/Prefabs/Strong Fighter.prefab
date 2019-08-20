@@ -124,6 +124,8 @@ MonoBehaviour:
   maxTimeBetweenShots: 2.4
   scorePoints: 86
   scoreRandomness: 35
+  healthPack: {fileID: 7299280260497812100, guid: e84013ce301f2514fb525755616e26ba,
+    type: 3}
 --- !u!58 &3067467490607601166
 CircleCollider2D:
   m_ObjectHideFlags: 0

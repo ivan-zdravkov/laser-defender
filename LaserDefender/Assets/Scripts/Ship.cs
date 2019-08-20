@@ -30,7 +30,7 @@ namespace Assets.Scripts
         {
             DamageDealer damageDealer = other.gameObject.GetComponent<DamageDealer>();
 
-            if (damageDealer.Alignment != this.alignment)
+            if (damageDealer != null && damageDealer.Alignment != this.alignment)
                 this.ProcessHit(damageDealer);
         }
 

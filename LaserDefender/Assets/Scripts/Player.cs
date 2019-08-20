@@ -117,4 +117,9 @@ public class Player : Ship
             return this.health;
         }
     }
+
+    public void GainHealth(int health)
+    {
+        this.health += health;
+    }
 }
